@@ -1,0 +1,29 @@
+.Pong {
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .Pong-paddle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+  }
+  
+  .Pong-paddle-right {
+    left: auto;
+    right: 0;
+  }
+  
+  .Pong-ball {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+  }
+  

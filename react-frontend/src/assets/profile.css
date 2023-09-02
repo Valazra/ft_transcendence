@@ -1,0 +1,28 @@
+.profile_div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: Helvetica, sans-serif;
+    font-size: 20px;
+    min-height: 10vh;
+    width: 90vw;
+}
+
+.input_profile {
+    font-size: 20px;
+}
+
+.button_profile {
+    font-size: 20px;
+    color: white;
+    width: 200px;
+    padding: 10px 10px;
+    background: black;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    position: relative;
+    font-family: Helvetica, sans-serif;
+    margin-top: 1rem;
+}

@@ -1,0 +1,118 @@
+/* Style du menu (sidebar) */
+.sidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 50vh;
+  height: 100vh;
+  background-color: #f8f9fa;
+  overflow: auto;
+  z-index: 1000;
+  box-shadow: -1px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  transition: transform 0.3s ease-out;
+}
+
+.content {
+  margin: 2vh;
+  flex-grow: 1;
+  height: calc(100vh - 14vh ); /* En supposant que votre .button-container est de 10vh et prendre en compte le padding et la marge */
+  overflow-y: auto; /* Défilement vertical si nécessaire */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.sidebar-closed {
+  transform: translateX(100%);
+}
+
+.button-container {
+  font-size: 20px;
+  min-height: 10vh;
+  box-shadow: -1px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  display: flex;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.button-container button:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.button-container button {
+  flex: 1;
+  margin: 0;
+  border: none;
+  background-color: #000000;
+  color: red;
+  appearance: none;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0;
+}
+.button-container button.active:hover {
+  color: rgb(255, 0, 0);
+  
+}
+.button-container button.active {
+  background-color: white;
+  color: red;
+}
+
+.user-info {
+    background-color: black;
+    color: white;
+    padding: 10px;
+  }
+
+  .link-profile{
+    background-color: black;
+    color: white;
+    padding: 10px;
+  }
+  
+  .user-info h2 {
+   
+  }
+  
+  .user-info p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .user-info button {
+   
+  }
+  
+  .menu-section {
+    display: grid;
+    grid-template-rows: 45% 45% 10%;
+    height: 100%; /* Occupe toute la hauteur de son parent */
+    overflow-y: auto; /* Défilement vertical si nécessaire */
+  }
+
+.menu-section > div {
+  
+  overflow: auto; /* rend chaque section défilable si le contenu déborde */
+  /* ajoute un espace intérieur pour le contenu de chaque section */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* aligne le contenu au début de l'axe vertical */
+  align-items: center; /* centre le contenu sur l'axe horizontal */
+  margin: 0; /* assurez-vous qu'il n'y a pas de marge supplémentaire */
+}
+
+.menu-section > div h2 {
+  color: red; /* couleur du texte en rouge */
+  font-size: 2em; /* taille du texte plus grande */
+  /* ajoutez d'autres styles comme nécessaire */
+}
+
+.last-row {
+  font-size: 20px;
+  grid-row: 3;  /* Indique que l'élément doit occuper la troisième ligne */
+  background-color: #000000;  /* Juste pour visualiser la div */
+  color: red;
+}

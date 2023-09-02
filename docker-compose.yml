@@ -1,0 +1,70 @@
+version: "3.8"
+
+services:
+  postgres:
+    build:
+      context: ./database/
+      dockerfile: ./Dockerfile
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      WDS_SOCKET_PORT: ${WDS_SOCKET_PORT}
+      
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./react-frontend/
+      dockerfile: ./Dockerfile
+      target: development
+    restart: always
+    ports:
+      - "80:3000"
+    networks:
+      - app-network
+    volumes:
+      - ./react-frontend/:/app
+      - /app/node_modules
+    environment:
+      WDS_SOCKET_PORT: ${WDS_SOCKET_PORT}
+
+  backend:
+    build:
+      context: ./nest-backend/
+      dockerfile: ./Dockerfile
+      target: development
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: postgres
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRESIN: ${JWT_EXPIRESIN}
+      WDS_SOCKET_PORT: ${WDS_SOCKET_PORT}
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+    volumes:
+      - ./nest-backend:/usr/src/app
+      - /usr/src/app/node_modules
+
+volumes:
+  postgres-data:
+
+networks:
+  app-network:
+    driver: bridge

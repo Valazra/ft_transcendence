@@ -1,0 +1,186 @@
+.navbar {
+    z-index: 999;
+    display: flex; /* Specifie que les elements doivent etre positionnes avec la disposition flexible (flexbox) ce qui permet de controler leur alignement et leur espacement */
+    flex-wrap: wrap; /* pour eviter que ca depasse sur les bords ou que ca se chevauche */
+    align-items: center; /* Controle l'alignement vertical des elements en les centrant par rapport a l'axe vertical */
+    justify-content: space-between; /* pour bien repartir l'espace : espacement horizontal. Met un espacement egal entre chaque element */
+    /*position: fixed; /* fixe la position de la navbar a l'ecran */
+    width: 100%; /* donne une largeur de 100% a la navbar pour qu'elle occupe tout l'ecran */
+    min-height: 10vh; /* Definit une hauteur minimale de 75 pixels pour la navbar */
+    padding: 1rem; /* ajoute un espace de 1 rem autour du contenu de la navbar (rem c'est une unite de mesure de longueur utilisee en CSS qui se base sur la taille de police par defaut du document html. Par defaut 1rem = 16pxl, mais en mettant rem, si on change la police du document ca va s'adapter) */
+    background-color:black; /* Definit la couleur de fond de la navbar en noir */
+    color:red; /* Definit la couleur du texte en rouge */
+}
+
+.navbar__links {
+    display: flex; /* Specifie que les liens doivent etre positionnes avec la disposition flexible (flexbox) */
+}
+
+.navbar__link {
+    font-size: 20px;
+    padding:0 2rem; /* Ajoute un espace de 0.3 rem a gauche et a droite de chaque lien */
+    color: inherit; /* Definit la couleur des liens en heritant de la couleur definie pour la navbar */
+}
+
+/*Change la couleur des liens quand on passe le curseur dessus*/
+.navbar__links a:hover {
+    color: white;
+}
+
+.navbar__links span:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.navbar__burger {
+    width: 40px; /* definit une largeur de 40 pixels pour le bouton  */
+    height: 40px; /* definit une hauteur de 40 pixels pour le bouton */
+    background-color: transparent; /* definit la couleur de fond comme transparante */
+    border: none; /* on suppr les bordures autour du bouton */
+    color: inherit; /* herite de la couleur definie pour la navbar */
+}
+
+.navbar__link--active {
+    color: white;
+}
+
+/* On utilisera ces parametres quand la largeur sera de 800px ou moins*/
+/* Attention a bien differencie "links" et "link" : links c'est la liste entiere avec tous les "link" 1 a 1*/
+@media screen and (max-width: 800px) {
+    /* ici en gros on donne la config de notre navbar, on la met a droite de notre ecran et on la cache */
+    .navbar__links {
+        flex-direction: column; /* Pour que le contenu de la navbar soit vertical */
+        justify-content: center; /* centre verticalement les elements a l'interieur de la navbar */
+        align-items: center; /* Centre horizontalement les elements a l'interieur de la navbar */
+        position: fixed; /* Definit la navbar comme etant positionnee de maniere fixe */
+        right: -100vw; /* Deplace la navbar hors de l'ecran a droite */
+        bottom: 0; /* definit que la navbar doit etre positionnee en bas de la fenetre */
+        width: 0; /* definit que la navbar doit avoir une largeur de 0 */
+        height: 100vh; /* definit que la navbar doit avoir une hauteur egale a la hauteur de la fenetre */
+        padding: 2rem; /* Ajoute une marge interieure de 2 rem a la navbar */
+        visibility: hidden; /* Cache la navbar en la rendant invisible */
+        background-color: black; /* Couleur de fond de la navbar */
+        transition: all .8s ease-out; /* Ajoute une transition de 0.8 secondes lorsque la navbar est affichee ou masquee */
+    }
+
+/*Change les parametres de la navbar_links si on est dans show-nav*/    
+    .show-nav .navbar__links {
+        width: 50vw;
+        right: 0;
+        visibility: visible;
+    }
+
+    /* Pour mettre les "-" entre les differents links */
+    .navbar__item::after {
+        content:"";
+        display: block; /* Type d'affichage de l'element comme un bloc : sur une ligne distincte, prenant toute la largeur disponible. */
+        margin: 0 auto;
+        width: 3vw;
+        height: 1px;
+        background: red;
+    }
+
+    /* permet de ne pas avoir le dernier "-" sous le dernier link */
+    .navbar__item:last-child::after {
+        display: none;
+    }
+
+    /* config de nos links 1 a 1 (la ou genre on a marque "Profile") */
+    .navbar__link {
+        display: block;
+        padding:1.5rem;
+        font-size: 5vw;
+    }
+
+    /* Config de notre burger : le burger c'est le bouton qui permet d'afficher notre menu */
+    .navbar__burger {
+        display: block;
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    /* Ca definit les styles a appliquer lorsque l'utilisateur survole l'element avec la souris (le burger) */
+    .navbar__burger:hover {
+        cursor: pointer; /* Ca met le curseur en pointeur (une petite main youpi) */
+    }
+
+    /* Cette regle definit l'apparence des lignes qui composent le bouton de menu */
+    .burger-bar,
+    .burger-bar::before,
+    .burger-bar::after {
+        display: block;
+        width:40px;
+        height: 3px;
+        position: relative; /* definit la position de l element comme relative par rapport a sa pos initiale */
+        border-radius: 3px; /* definit le rayon de courbure des bords de l'element a 3 pxl*/
+        background: red;
+        transition: all .5s ease-in-out;
+    }
+
+    /* Correspond au trait du haut et du bas de notre burger */
+    .burger-bar::before,
+    .burger-bar::after {
+        content: "";
+        position: absolute;
+        left: 0;
+    }
+
+    .burger-bar::before {
+        transform: translateY(-12px); /* positionne bien le trait du haut par rapport a celui du milieu */
+    }
+
+    .burger-bar::after {
+        transform: translateY(12px);
+    }
+
+    /* correspond au bouton burger quand on a clique dessus et qu'on afficher le menu : */
+    /* ici on est sur le trait du milieu, on le vire */
+    .show-nav .burger-bar {
+        width: 0;
+        background: transparent;
+    }
+
+    /* on rotate les barres du haut et du bas pour former une croix */
+    .show-nav .burger-bar::before {
+        transform: rotate(45deg);
+    }
+
+    .show-nav .burger-bar::after {
+        transform: rotate(-45deg);
+    }
+
+    /* Permet de quand on clicke sur le burger d'avoir un effet ou les links viennent du bas du menu vers le haut*/
+    /* place */
+    .navbar__item {
+        transform: translateY(100vh); /* Deplace tous les elements de la navbar hors de l'ecran en bas */
+    }
+
+    .show-nav .navbar__item {
+        transform: translateY(0); /* Remonte les elements et les mets a notre vue */
+    }
+
+    .show-nav .slideInDown-1 {
+        transition: all 1s ease-out; /* transition avec 0.1s entre chaque item pour qu'ils se positionnent dans l'ordre */
+    }
+
+    .show-nav .slideInDown-2 {
+        transition: all 1.1s ease-out;
+    }
+
+    .show-nav .slideInDown-3 {
+        transition: all 1.2s ease-out;
+    }
+
+    .show-nav .slideInDown-4 {
+        transition: all 1.3s ease-out;
+    }
+
+    .show-nav .slideInDown-5 {
+        transition: all 1.4s ease-out;
+    }
+
+    .show-nav .slideInDown-6 {
+        transition: all 1.5s ease-out;
+    }
+}
